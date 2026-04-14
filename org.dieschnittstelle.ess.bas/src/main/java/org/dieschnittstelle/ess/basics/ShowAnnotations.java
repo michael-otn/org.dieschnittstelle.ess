@@ -83,3 +83,37 @@ public class ShowAnnotations {
 		}
 	}
 }
+
+/*
+private static void showAttributes(Object instance) {
+	show("class is: " + instance.getClass());
+
+	try {
+
+		Class<?>  klass = instance.getClass();
+		Field[] fields = klass.getDeclaredFields();
+		StringBuilder sb = new StringBuilder();
+		sb.append("{").append(klass.getSimpleName()).append(" ");
+
+		for (int i = 0; i < fields.length; i++) {
+			Field field = fields[i];
+			field.setAccessible(true);
+
+			String displayName = field.getName(); // alternative das ist der "dirty way", auf getter zugreifen, dabei muss der getter name nicht bekannt sein
+			Object value = field.get(instance);
+
+			sb.append(displayName).append(":").append(value);
+
+			if (i < fields.length - 1) {
+				sb.append(", ");
+			}
+		}
+
+		sb.append("}");
+		show(sb.toString());
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		throw new RuntimeException("showAnnotations(): exception occurred: " + e, e);
+	}}
+	*/
