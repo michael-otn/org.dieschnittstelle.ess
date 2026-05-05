@@ -1,18 +1,18 @@
 package org.dieschnittstelle.ess.basics.annotations.stockitemtypes;
 
-import org.dieschnittstelle.ess.basics.annotations.Initialise;
-import org.dieschnittstelle.ess.basics.annotations.Brandname;
-import org.dieschnittstelle.ess.basics.annotations.StockItem;
-import org.dieschnittstelle.ess.basics.annotations.Units;
+import org.dieschnittstelle.ess.basics.annotations.*;
 
 @StockItem
 public class Milch {
 
 	@Units
+	@DisplayAs("Amount")
 	private int menge;
 
 	@Brandname
+	@DisplayAs("Brand Name")
 	private String markenname;
+
 
 	public int getMenge() {
 		return menge;
