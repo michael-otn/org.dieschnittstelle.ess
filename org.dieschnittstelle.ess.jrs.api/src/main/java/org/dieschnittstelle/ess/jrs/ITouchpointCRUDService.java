@@ -7,8 +7,8 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/touchpoints")
-@Consumes({MediaType.APPLICATION_JSON})
-@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON}) // nimmt JSON an
+@Produces({MediaType.APPLICATION_JSON}) // gibt Json zurück
 public interface ITouchpointCRUDService {
 
 	@GET
@@ -18,6 +18,7 @@ public interface ITouchpointCRUDService {
 	@Path("/{touchpointId}")
 	StationaryTouchpoint readTouchpoint(@PathParam("touchpointId") long id);
 
+	//ohne Id weil diese erst erstellt werden  muss
 	@POST
 	StationaryTouchpoint createTouchpoint(StationaryTouchpoint touchpoint);
 
@@ -28,5 +29,9 @@ public interface ITouchpointCRUDService {
 	/*
 	 * TODO JRS1: add a new annotated method for using the updateTouchpoint functionality of TouchpointCRUDExecutor and implement it
 	 */
-
+	/*
+	@PUT
+	@Path("/{touchpointId}")
+	boolean updateTouchpoint(@PathParam("touchpointId") long id);
+*/
 }
