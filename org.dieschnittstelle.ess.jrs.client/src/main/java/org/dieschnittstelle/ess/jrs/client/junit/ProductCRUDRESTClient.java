@@ -2,11 +2,18 @@ package org.dieschnittstelle.ess.jrs.client.junit;
 
 import java.util.List;
 
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
 import org.apache.logging.log4j.Logger;
 import org.dieschnittstelle.ess.entities.erp.AbstractProduct;
 import org.dieschnittstelle.ess.entities.erp.IndividualisedProductItem;
 
 import org.dieschnittstelle.ess.jrs.IProductCRUDService;
+import org.dieschnittstelle.ess.jrs.ITouchpointCRUDService;
+import org.dieschnittstelle.ess.jrs.client.jackson.LaissezFairePolymorphicJacksonProvider;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+
+import static org.dieschnittstelle.ess.utils.Utils.show;
 
 public class ProductCRUDRESTClient {
 
@@ -20,7 +27,15 @@ public class ProductCRUDRESTClient {
 		/*
 		 * TODO: JRS2: create a client for the web service using ResteasyClientBuilder and ResteasyWebTarget
 		 */
-		serviceProxy = null;
+		Client client = ClientBuilder.newBuilder()
+				.build()
+				// use our custom jackson provider that is less restrictive if it comes to dealing with polymorphic types
+				// handled using @JsonTypeInfo
+				.register(LaissezFairePolymorphicJacksonProvider.class);
+		ResteasyWebTarget target = (ResteasyWebTarget)client.target("http://localhost:8080/api/");
+		IProductCRUDService service = target.proxy(IProductCRUDService.class);
+		serviceProxy = service;
+		show("serviceProxy: " + serviceProxy + " of class: " + serviceProxy.getClass());
 	}
 
 	public AbstractProduct createProduct(IndividualisedProductItem prod) {

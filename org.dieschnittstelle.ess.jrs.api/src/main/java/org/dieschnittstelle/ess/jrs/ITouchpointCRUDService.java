@@ -28,5 +28,5 @@ public interface ITouchpointCRUDService {
 	/*
 	 * TODO JRS1: add a new annotated method for using the updateTouchpoint functionality of TouchpointCRUDExecutor and implement it
 	 */
-
+	public StationaryTouchpoint updateTouchpoint(long id, StationaryTouchpoint update);
 }

@@ -18,7 +18,9 @@ import jakarta.ws.rs.client.ClientBuilder;
 
 import static org.dieschnittstelle.ess.utils.Utils.*;
 
-public class ShowTouchpointRESTService {
+public class
+
+ShowTouchpointRESTService {
 
 	protected static Logger logger = org.apache.logging.log4j.LogManager
 			.getLogger(ShowTouchpointRESTService.class);
