@@ -44,6 +44,7 @@ ShowTouchpointRESTService {
 
 		ResteasyWebTarget target = (ResteasyWebTarget)client.target("http://localhost:8080/api/" + (async ? "async/" : ""));
 		ITouchpointCRUDService serviceProxy = target.proxy(ITouchpointCRUDService.class);
+		//
 
 		show("serviceProxy: " + serviceProxy + " of class: " + serviceProxy.getClass());
 
