@@ -64,8 +64,6 @@ public class ShowAnnotations {
 					fieldName = field.getName();
 				}
 
-
-
 				// Getter dynamisch erzeugen (Konvention!)
 				String getterName =
 						"get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
@@ -93,10 +91,6 @@ public class ShowAnnotations {
 			sb.append("}");
 
 			show(sb.toString());
-			// TODO BAS3: if the new @DisplayAs annotation is present on a field,
-			//  the string representation will not use the field's name, but the name
-			//  specified in the the annotation. Regardless of @DisplayAs being present
-			//  or not, the field's value will be included in the string representation.
 
 		} catch (Exception e) {
 			e.printStackTrace();
