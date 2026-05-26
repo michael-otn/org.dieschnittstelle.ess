@@ -218,15 +218,17 @@ public class JSONObjectMapper {
 				if (Modifier.isAbstract(((Class) type).getModifiers())) {
 					// check if abstract class has JsonTypeInfo
 					if(((Class)type).isAnnotationPresent(JsonTypeInfo.class)){
+						// read annotation and extract property name
 						JsonTypeInfo jsonTypeInfo = ((Class<?>)type).getAnnotation(JsonTypeInfo.class);
-						// Access the value of the discriminator field property
-						String discriminator = jsonTypeInfo.property(); // @class
+						// Access the value of the field property
+						String typeFieldName = jsonTypeInfo.property();
 
 						if(jsonTypeInfo.use() == JsonTypeInfo.Id.CLASS){
-							JsonNode discriminatorNode = ((ObjectNode) json).get(discriminator);
-							String className = discriminatorNode.textValue();
+							// read typeFieldName value from JSON
+							JsonNode typeFieldNameNode = ((ObjectNode) json).get(typeFieldName);
+							String className = typeFieldNameNode.textValue();
 							try {
-								// Build the class from name and instance an object of it
+								// Build the class from name (via reflection) and instance an object of it
 								type = Class.forName(className);
 								obj = ((Class<?>) type).getDeclaredConstructor().newInstance();
 							} catch (Exception e) {
