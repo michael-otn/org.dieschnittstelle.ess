@@ -213,11 +213,27 @@ public class JSONObjectMapper {
 
 				// check whether we have an abstract class that has jsontype
 				// info present
+				// TODO: include a handling for abstract classes considering
+				// the JsonTypeInfo annotation that might be set on type
 				if (Modifier.isAbstract(((Class) type).getModifiers())) {
-					// TODO: include a handling for abstract classes considering
-					// the JsonTypeInfo annotation that might be set on type
-					throw new ObjectMappingException(
-							"cannot instantiate abstract class: " + type);
+					// check if abstract class has JsonTypeInfo
+					if(((Class)type).isAnnotationPresent(JsonTypeInfo.class)){
+						JsonTypeInfo jsonTypeInfo = ((Class<?>)type).getAnnotation(JsonTypeInfo.class);
+						// Access the value of the discriminator field property
+						String discriminator = jsonTypeInfo.property(); // @class
+
+						if(jsonTypeInfo.use() == JsonTypeInfo.Id.CLASS){
+							JsonNode discriminatorNode = ((ObjectNode) json).get(discriminator);
+							String className = discriminatorNode.textValue();
+							try {
+								// Build the class from name and instance an object of it
+								type = Class.forName(className);
+								obj = ((Class<?>) type).getDeclaredConstructor().newInstance();
+							} catch (Exception e) {
+								throw new RuntimeException(e);
+							}
+						}
+					}
 				} else {
 					obj = ((Class) type).newInstance();
 				}
