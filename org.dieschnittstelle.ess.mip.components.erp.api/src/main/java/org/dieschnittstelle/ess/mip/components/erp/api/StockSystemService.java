@@ -1,11 +1,9 @@
 package org.dieschnittstelle.ess.mip.components.erp.api;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.dieschnittstelle.ess.entities.erp.IndividualisedProductItem;
+import org.dieschnittstelle.ess.mip.components.erp.api.dto.StockItemDTO;
 
 import java.awt.*;
 import java.util.List;
@@ -25,27 +23,38 @@ public interface StockSystemService {
 	/**
 	 * adds some units of a product to the stock of a point of sale
 	 */
-	@Path("/products/{productId}/po/{posId}")
-    void addToStock(@PathParam("productId") long productId, @PathParam("posId") long pointOfSaleId, int units);
+//	@Path("/products/{productId}/po/{posId}")
+//    void addToStock(@PathParam("productId") long productId, @PathParam("posId") long pointOfSaleId, int units);
 
+	@POST
+	@Path("/add")
+	void addToStock(StockItemDTO stockItemDTO);
 	/**
 	 * removes some units of a product from the stock of a point of sale
 	 */
-    void removeFromStock(long productId, long pointOfSaleId, int units);
+	@POST
+	@Path("/remove")
+	void removeFromStock(StockItemDTO stockItemDTO);
 
 	/**
 	 * returns all products on stock or, if pointOfSaleId is specified, the products for some pointOfSale
 	 */
-    List<IndividualisedProductItem> getProductsOnStock(long pointOfSaleId);
+	@GET
+	@Path("/products")
+	List<IndividualisedProductItem> getProductsOnStock(@QueryParam("podId") long pointOfSaleId);
 
 	/**
 	 * returns the units on stock for a given product overall or, if a pointOfSaleId is specified, at some point of sale
 	 */
-    int getUnitsOnStock(long productId, long pointOfSaleId);
+	@GET
+	@Path("/products/{productId}")
+	int getUnitsOnStock(@PathParam("productId") long productId, @QueryParam("posId") long pointOfSaleId);
 
 	/**
 	 * returns the points of sale where some product is available
 	 */
-    List<Long> getPointsOfSale(long productId);
+	@GET
+	@Path("/pointsOfSale")
+	List<Long> getPointsOfSale(@QueryParam("productId") long productId);
 
 }
