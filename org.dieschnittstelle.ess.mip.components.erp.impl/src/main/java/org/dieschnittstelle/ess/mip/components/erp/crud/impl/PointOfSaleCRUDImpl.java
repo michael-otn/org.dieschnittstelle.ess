@@ -33,7 +33,8 @@ public class PointOfSaleCRUDImpl implements PointOfSaleCRUD {
 	@Inject
 	@EntityManagerProvider.ERPDataAccessor
 	private EntityManager em;
-	
+
+
 	/*
 	 * TODO ADD1: comment in/out @TransactionAttribute
 	 */

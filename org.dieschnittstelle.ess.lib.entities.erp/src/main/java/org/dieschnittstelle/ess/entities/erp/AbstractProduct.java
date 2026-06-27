@@ -32,7 +32,7 @@ public abstract class AbstractProduct implements Serializable, GenericCRUDEntity
 	protected static Logger logger = org.apache.logging.log4j.LogManager.getLogger(AbstractProduct.class);
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6940403029597060153L;
 
@@ -41,7 +41,7 @@ public abstract class AbstractProduct implements Serializable, GenericCRUDEntity
 	private long id;
 
 	private String name;
-	
+
 	private int price;
 
 	public AbstractProduct() {
@@ -67,7 +67,7 @@ public abstract class AbstractProduct implements Serializable, GenericCRUDEntity
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public int getPrice() {
 		return price;
 	}
